@@ -1,6 +1,6 @@
 # Day 1 
 
-[-] Youtbe Functional Requirement : 
+- [x] Youtbe Functional Requirement : 
 1. Upload video.
 2. Watch Video
 3. Search Video
@@ -12,7 +12,7 @@
 9. Notifications
 
 
-[-] Some Enhancments : 
+- [x] Some Enhancments : 
 1. Caching
 2. Pagination
 3. Load Balancing
@@ -20,7 +20,7 @@
 5. Rate-Limiting
 
 
-[-] Teach Stack : 
+- [x] Teach Stack : 
 
 1. Python
 2. Django
