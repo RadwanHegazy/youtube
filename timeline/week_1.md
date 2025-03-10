@@ -71,3 +71,20 @@ For tokenization and use it on authentication in our system.
 
 For see our mind map of our project 
 [click Here](https://lucid.app/lucidspark/f4356206-4e08-4a44-9471-71ae04195d79/edit?viewport_loc=-2080%2C-47%2C2336%2C1118%2C0_0&invitationId=inv_b4e40f39-c1c5-484f-aeff-875591a6ce2d)
+
+# Day 3
+
+Today i still working in two main things : 
+ 
+1. continue editing on [mind map](https://lucid.app/lucidspark/f4356206-4e08-4a44-9471-71ae04195d79/edit?viewport_loc=-2080%2C-47%2C2336%2C1118%2C0_0&invitationId=inv_b4e40f39-c1c5-484f-aeff-875591a6ce2d)
+
+2. implement the database [schema](https://drawsql.app/teams/test-1748/diagrams/youtube) 
+
+
+All these things has been submitted on mindmap or db schema : 
+
+- [x] User
+- [x] Video
+- [x] Video Media
+- [x] Comment
+- [x] Notifications
