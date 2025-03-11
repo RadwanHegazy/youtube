@@ -88,3 +88,23 @@ All these things has been submitted on mindmap or db schema :
 - [x] Video Media
 - [x] Comment
 - [x] Notifications
+
+
+# Day 4
+
+Today I start working in `hastag` feature on the system.
+I do these things : 
+
+- [x] Add this feature in mind map and write the use cases and all information about it.
+
+- [x] integerate the feature on the database schema and edit the relationship between it and other tables.
+
+Then I add the `playlist` feature to the system.
+
+At the end i write the enhancments that should i made on the system like : 
+
+1. `Paginations`
+2. `caching`
+3. `Rate-Limiting`
+4. `Load Balancing`
+5. `Query Optimization`
