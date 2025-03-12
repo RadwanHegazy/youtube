@@ -1,0 +1,54 @@
+name: "Youtube"
+
+services:
+  db:
+    image: mysql:8.0.40-debian
+    container_name: mysql_db
+    environment:
+      MYSQL_DATABASE: yt_db
+      MYSQL_USER: youtube_db_user
+      MYSQL_PASSWORD: youtube123
+      MYSQL_ROOT_PASSWORD: root
+      
+    volumes:
+      - mysql_data:/var/lib/mysql
+    # ports:
+    #   - "3306:3306"
+    networks:
+      - myproject_network
+
+  redis:
+    image: redis:latest
+    container_name: redis_cache
+    # ports:
+    #   - "6379:6379"
+    networks:
+      - myproject_network
+
+  web:
+    build: .
+    container_name: django_app
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=yt_db
+      - DB_USER=youtube_db_user
+      - DB_PASSWORD=youtube123
+      - REDIS_HOST=redis
+    depends_on:
+      - db
+      - redis
+    networks:
+      - myproject_network
+
+volumes:
+  mysql_data:
+
+networks:
+  myproject_network:
+    driver: bridge

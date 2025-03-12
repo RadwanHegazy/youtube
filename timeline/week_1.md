@@ -108,3 +108,20 @@ At the end i write the enhancments that should i made on the system like :
 3. `Rate-Limiting`
 4. `Load Balancing`
 5. `Query Optimization`
+
+# Day 5
+
+- Today I working to visualize the tools which i will use by docker on this [document](https://lucid.app/lucidchart/85c2d106-41b0-42a0-b42a-62e3449c4b82/edit?viewport_loc=-15576%2C6374%2C20549%2C8690%2C0_0&invitationId=inv_9858154b-18a5-4e26-ba4d-c287be286c72)
+
+- I init the Django Project with no **apps**
+
+- Creating `MySQL` Database and connect it to the system
+
+- Creating `Redis` and integerate it to the system
+
+- Create These staff for __Docker__ : 
+
+    1. creating `.dockerignore` file
+    2. // `Dockerfile`
+    3. // `docker-compose-yml`
+    4. Running Django server , MySQL database and Redis via `Docker`
