@@ -125,3 +125,21 @@ At the end i write the enhancments that should i made on the system like :
     2. // `Dockerfile`
     3. // `docker-compose-yml`
     4. Running Django server , MySQL database and Redis via `Docker`
+
+
+# Day 6
+
+Today i'm gonna to use `Apache` as a load balancer to the system.
+I started to integrate `Apache` to the system and i created : 
+
+1. `apache/000-default.conf` : Write apache configuration file
+2. `apache/Dockerfile` : Write custom start up commands for using apache on the system
+
+And i created 3 Django servers listening on these ports :
+
+1. `8000`
+2. `8001`
+3. `8002`
+
+
+And all of these is writing on `docker-compose.yml` file
