@@ -23,3 +23,22 @@ Then i use my package `socail_auth` to login via google using it.
 - create `Video` schema depends on the diagram which i written
 
 - created `globals` app for use it as a base app for other apps
+
+
+# Day 3
+
+- Created 2 apps : 
+
+    1. `hasgtag`
+    2. `comment`
+
+- created 2 models : 
+
+    1. `Comment`
+    2. `Hashtag`
+
+- re-edit on User model and add these fields : 
+    
+    - user_hastags
+    - user_liked_videos
+    - user_history
