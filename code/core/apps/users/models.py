@@ -17,5 +17,8 @@ class User (AbstractUser) :
     # history = models
     # hastags = 
 
+    def get_subscriptions(self) : 
+        return self.subscriptions.all()
+    
     def __str__(self):
         return self.username

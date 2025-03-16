@@ -40,8 +40,10 @@ DEFAULT_APPS = [
 ]
 
 LOCAL_APPS = [
+    'globals',
     'apps.users',
-    'apps.social_auth'
+    'apps.social_auth',
+    'apps.videos',
 ]
 
 
@@ -176,4 +178,13 @@ SOCIAL_AUTH = {
         'save_user_data' : custom_save_data_for_google
     },
 
+}
+
+
+from datetime import timedelta
+
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
