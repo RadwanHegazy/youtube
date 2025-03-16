@@ -44,6 +44,9 @@ LOCAL_APPS = [
     'apps.users',
     'apps.social_auth',
     'apps.videos',
+    'apps.hashtag',
+    'apps.comment',
+    
 ]
 
 

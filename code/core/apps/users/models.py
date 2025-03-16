@@ -13,12 +13,9 @@ class User (AbstractUser) :
 
     REQUIRED_FIELDS = ['email']
     
-    # likes_videos = 
-    # history = models
-    # hastags = 
+    liked_videos = models.ManyToManyField('videos.Video', related_name='user_liked_videos' ,blank=True)
+    history = models.ManyToManyField('videos.Video', related_name='user_watched_videos' ,blank=True)
+    hashtags = models.ManyToManyField('videos.Video', related_name='user_hastags_videos' ,blank=True)
 
-    def get_subscriptions(self) : 
-        return self.subscriptions.all()
-    
     def __str__(self):
         return self.username
