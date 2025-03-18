@@ -39,6 +39,25 @@ Then i use my package `socail_auth` to login via google using it.
 
 - re-edit on User model and add these fields : 
     
-    - user_hastags
+    - user_hashtags
     - user_liked_videos
     - user_history
+
+
+# Day 4
+
+- Done writing these endpoints : 
+    1. `video/get/` -> get list of all videos
+    2. `video/get/{id}` -> get video by id
+    2. `video/delete/{id}` -> delete video by id
+    2. `video/update/{id}` -> update video by id
+
+- Create custom permission `IsVideoOwner` for checking if the request action is accured by the owner of the video
+
+- Create `playlist` app and `PlayList` model inside this app.
+
+- create custom functions to get the user timeline in `globals/filter_videos` : 
+
+    1. `anonymus_filtering` -> filter videos for anonymous user
+
+    2. `user_filtering(user)` -> filter videos for incoming user request
