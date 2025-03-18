@@ -16,3 +16,14 @@ class ProfileSerializer (serializers.ModelSerializer) :
             'full_name',
             'picture',
         ]
+
+class UserOwnerSerializer(serializers.ModelSerializer) : 
+
+    class Meta:
+        model = User
+        fields = [
+            'id',
+            'username',
+            'picture',
+            'full_name'
+        ]
