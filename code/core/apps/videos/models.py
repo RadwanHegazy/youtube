@@ -14,14 +14,17 @@ class Video (TimestampModel) :
     thumbnail = models.ImageField(upload_to='video-thumbnails/')
     viewers = models.ManyToManyField(User, related_name='video_viwers', blank=True)
     viewers_counter = models.IntegerField(default=0)
-    duration = models.CharField(max_length=20)
+    duration = models.CharField(max_length=20, null=True, blank=True)
+    
+    @property
+    def get_unique_viewers_counter(self) : 
+        return self.viewers.count()
 
-    def get_unique_viewers(self) : 
-        return self.viewers.all()
+    @property
+    def get_likes_by_counter(self) : 
+        return self.likes_by.count()
     
-    def get_likes_by(self) : 
-        return self.likes_by.all()
-    
-    def get_dislikes_by(self) : 
-        return self.dislikes_by.all()
+    @property
+    def get_dislikes_by_counter(self) : 
+        return self.dislikes_by.count()
     

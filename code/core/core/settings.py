@@ -46,6 +46,7 @@ LOCAL_APPS = [
     'apps.videos',
     'apps.hashtag',
     'apps.comment',
+    'apps.playlist',
     
 ]
 
