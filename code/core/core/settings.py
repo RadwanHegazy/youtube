@@ -47,6 +47,7 @@ LOCAL_APPS = [
     'apps.hashtag',
     'apps.comment',
     'apps.playlist',
+    'apps.video_media',
     
 ]
 
@@ -155,12 +156,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": f"redis://{os.environ.get('REDIS_HOST')}:6379/1",
+        "LOCATION": f"{os.environ.get("REDIS_URL")}/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
     }
 }
+
 
 
 
@@ -192,3 +194,11 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
+
+
+CELERY_BROKER_URL = f"{os.environ.get("REDIS_URL")}/2"
+CELERY_RESULT_BACKEND = f"{os.environ.get("REDIS_URL")}/3"
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'

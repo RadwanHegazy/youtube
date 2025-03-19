@@ -20,5 +20,5 @@ class ListVideoAPI (ListAPIView) :
 
 class RetriveVideoAPI(RetrieveAPIView) : 
     serializer_class = GetVideoSerializer
-    queryset = Video.objects.all()
+    queryset = Video.objects.filter(is_active=True)
     lookup_field = 'id'

@@ -63,6 +63,21 @@ services:
     networks:
       - myproject_network
 
+  celery:
+    build: .
+    command: celery -A core worker --loglevel=info
+    container_name: celery_webworker
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    networks:
+      - myproject_network
+
+    
   apache:
     build: ./apache
     container_name: apache_loadbalancer
