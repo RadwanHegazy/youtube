@@ -61,3 +61,19 @@ Then i use my package `socail_auth` to login via google using it.
     1. `anonymus_filtering` -> filter videos for anonymous user
 
     2. `user_filtering(user)` -> filter videos for incoming user request
+
+# Day 5
+
+- Init app `video_media`
+
+- Create Model `VideoMedia`
+
+- Integerate `celery` with the system to implement background tasks
+
+- Write the logic of parse the uploaded video into another videos with small qualities, the logic is written in `globals/resolution_parser.py`
+
+- Created the celery method which will run on the background, Located in `apps/videos/tasks.py`
+
+- Write some edits on model `Video` to accept upload original video
+
+- Write some changes in `CreateVideoSerializer` for running the background celery method when the original video uploaded successfully

@@ -15,6 +15,8 @@ class Video (TimestampModel) :
     viewers = models.ManyToManyField(User, related_name='video_viwers', blank=True)
     viewers_counter = models.IntegerField(default=0)
     duration = models.CharField(max_length=20, null=True, blank=True)
+    original_video = models.FileField(upload_to='video-original/')
+    is_active = models.BooleanField(default=False)
     
     @property
     def get_unique_viewers_counter(self) : 

@@ -1,9 +1,9 @@
 from ..models import Video
 from rest_framework import serializers
 from apps.users.apis.serializers import UserOwnerSerializer
+from ..tasks import parse_resolutions
 
 class CreateVideoSerializer (serializers.ModelSerializer) : 
-    # video = serializers.FileField()
 
     class Meta:
         model = Video
@@ -12,12 +12,22 @@ class CreateVideoSerializer (serializers.ModelSerializer) :
             'title',
             'description',
             'thumbnail',
+            'original_video',
         ]
 
-    def validate(self, attrs):
+        read_only_fields = ['owner']
+        
+        
+    def save(self, **kwargs):
         request = self.context.get('request')
-        attrs['owner'] = request.user
-        return attrs
+        data = self.validated_data
+        data['owner'] = request.user
+        model  = Video.objects.create(**data)
+        model.save()
+        parse_resolutions.delay(model.id)
+        return model
+
+    
     
 class UpdateVideoSerializer (CreateVideoSerializer) : ...
 
