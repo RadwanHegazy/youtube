@@ -15,7 +15,15 @@ class User (AbstractUser) :
     
     liked_videos = models.ManyToManyField('videos.Video', related_name='user_liked_videos' ,blank=True)
     history = models.ManyToManyField('videos.Video', related_name='user_watched_videos' ,blank=True)
-    hashtags = models.ManyToManyField('videos.Video', related_name='user_hastags_videos' ,blank=True)
+    hashtags = models.ManyToManyField('hashtag.Hashtag', related_name='user_hastags_videos' ,blank=True)
 
     def __str__(self):
         return self.username
+    
+    def recommended_videos(self) : 
+        videos_list = []
+        for hashtag in self.hashtags.all() : 
+            for video in hashtag.videos.all():
+                videos_list.append(video.id)
+
+        return set(videos_list)

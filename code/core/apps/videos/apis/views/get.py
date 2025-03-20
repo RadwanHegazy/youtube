@@ -11,7 +11,7 @@ class ListVideoAPI (ListAPIView) :
     def get_queryset(self):
         user = self.request.user
 
-        if user.is_authenticated:
+        if user.is_anonymous:
             query = anonymus_filtering()
         else:
             query = user_filtering(user)

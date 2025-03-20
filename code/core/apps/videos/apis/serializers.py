@@ -8,14 +8,11 @@ class CreateVideoSerializer (serializers.ModelSerializer) :
     class Meta:
         model = Video
         fields = [
-            'owner',
             'title',
             'description',
             'thumbnail',
             'original_video',
         ]
-
-        read_only_fields = ['owner']
         
         
     def save(self, **kwargs):
@@ -24,9 +21,11 @@ class CreateVideoSerializer (serializers.ModelSerializer) :
         data['owner'] = request.user
         model  = Video.objects.create(**data)
         model.save()
-        parse_resolutions.delay(model.id)
+        parse_resolutions.delay(vid_id=model.id)
         return model
 
+    def to_representation(self, instance):
+        return {}
     
     
 class UpdateVideoSerializer (CreateVideoSerializer) : ...
