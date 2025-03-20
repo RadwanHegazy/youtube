@@ -77,3 +77,18 @@ Then i use my package `socail_auth` to login via google using it.
 - Write some edits on model `Video` to accept upload original video
 
 - Write some changes in `CreateVideoSerializer` for running the background celery method when the original video uploaded successfully
+
+
+# Day 6
+
+- Done writing the logic which is conisder on the timline of the autgenticated user .
+
+- Re-edit the db schema
+
+- writing test cases for endpoints : 
+
+    1. `Upload Videos`
+    2. `Get List Videos`
+    3. `Retrive Video by id`
+
+- Solve Celery issues while parsing the resolutions in the original video.

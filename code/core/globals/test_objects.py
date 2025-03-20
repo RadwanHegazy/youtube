@@ -1,8 +1,8 @@
-from django.contrib.auth import get_user_model
+from apps.users.models import User
 from rest_framework_simplejwt.tokens import AccessToken
+from apps.hashtag.models import Video, Hashtag
 from uuid import uuid4
 
-User = get_user_model()
 
 def create_user(username=None,email=None,**kwargs) :
     return User.objects.create(
@@ -11,6 +11,23 @@ def create_user(username=None,email=None,**kwargs) :
         **kwargs
     )
 
+def create_video(owner=None, title='test',description='test', is_active=False, hashtags=[]) :
+    vid = Video.objects.create(
+        owner = owner if owner else create_user(),
+        title=title,
+        description=description,
+        is_active=is_active
+    ) 
+
+    for i in hashtags:
+        vid.hashtags.add(i)
+    
+    vid.save()
+    return vid
+
+def create_hashtag(name='test'):
+    return Hashtag.objects.create(name=name)
+    
 
 def create_access_token(user=None) : 
     return AccessToken.for_user(
