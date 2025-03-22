@@ -8,5 +8,6 @@ class DeleteVideoAPI (DestroyAPIView) :
 
     def get_queryset(self):
         return Video.objects.filter(
-            owner = self.request.user
+            owner = self.request.user,
+            is_active = True
         )
