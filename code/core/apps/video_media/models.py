@@ -1,9 +1,10 @@
 from django.db import models
-from apps.videos.models import Video
+# from apps.videos.models import Video
 
 class VideoMedia (models.Model) : 
-    video = models.ForeignKey(Video, related_name='video_media', on_delete=models.CASCADE)
+    video = models.ForeignKey('videos.Video', related_name='video_media', on_delete=models.CASCADE)
     quality = models.CharField(max_length=10)
-    path = models.FilePathField(null=True, blank=True)
+    path = models.CharField(max_length=225,null=True, blank=True)
 
-    
+    def __str__(self):
+        return self.path

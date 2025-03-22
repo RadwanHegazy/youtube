@@ -1,6 +1,7 @@
 from celery import shared_task
 from globals.resolution_parser import ResolutionParser
-from apps.video_media.models import Video, VideoMedia
+from apps.video_media.models import VideoMedia
+from apps.videos.models import Video
 
 @shared_task
 def parse_resolutions(vid_id) :

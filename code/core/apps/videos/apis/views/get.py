@@ -1,12 +1,13 @@
 from rest_framework.generics import RetrieveAPIView, ListAPIView
-from ..serializers import GetVideoSerializer, Video
+from ..serializers import ListVideosSerializer, GetVideoSerializer
+from apps.videos.models import Video
 from globals.filter_videos import (
     anonymus_filtering,
     user_filtering
 )
 
 class ListVideoAPI (ListAPIView) :
-    serializer_class = GetVideoSerializer
+    serializer_class = ListVideosSerializer
 
     def get_queryset(self):
         user = self.request.user

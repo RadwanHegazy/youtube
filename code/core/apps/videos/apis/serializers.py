@@ -2,6 +2,8 @@ from ..models import Video
 from rest_framework import serializers
 from apps.users.apis.serializers import UserOwnerSerializer
 from ..tasks import parse_resolutions
+from apps.video_media.serializers import VideoMediaSerializer
+
 
 class CreateVideoSerializer (serializers.ModelSerializer) : 
 
@@ -31,8 +33,24 @@ class CreateVideoSerializer (serializers.ModelSerializer) :
 class UpdateVideoSerializer (CreateVideoSerializer) : ...
 
 
-class GetVideoSerializer(serializers.ModelSerializer) :
+class ListVideosSerializer(serializers.ModelSerializer) :
     owner = UserOwnerSerializer()
+    
+    class Meta:
+        model = Video
+        fields = [
+            'id',
+            'owner',
+            'title',
+            'thumbnail',
+            'created_at',
+            'viewers_counter',
+            'duration',
+        ]
+
+
+class GetVideoSerializer(ListVideosSerializer) :
+    get_list_video_media = VideoMediaSerializer(many=True)
 
     class Meta:
         model = Video
@@ -40,9 +58,12 @@ class GetVideoSerializer(serializers.ModelSerializer) :
             'id',
             'owner',
             'title',
-            'description',
             'thumbnail',
+            'created_at',
             'viewers_counter',
+            'description',
             'get_likes_by_counter',
             'get_dislikes_by_counter',
+            'get_list_video_media',
+            'duration',
         ]

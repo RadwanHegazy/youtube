@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from globals.models import TimestampModel
+from apps.video_media.models import VideoMedia
 
 User = get_user_model()
 
@@ -31,3 +32,6 @@ class Video (TimestampModel) :
     def get_dislikes_by_counter(self) : 
         return self.dislikes_by.count()
     
+    @property
+    def get_list_video_media(self) : 
+        return VideoMedia.objects.filter(video=self)

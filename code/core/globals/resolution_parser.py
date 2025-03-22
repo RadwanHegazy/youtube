@@ -19,7 +19,19 @@ class ResolutionParser :
         self.video_path = video_path
 
     def get_duration(self) : 
-        return self.__duration
+        seconds = self.__duration
+        """
+        Convert duration in seconds to a YouTube-like format (e.g., 0:10, 1:30, 1:05:30).
+        """
+        seconds = float(seconds)  # Ensure the input is a float
+        hours = int(seconds // 3600)
+        minutes = int((seconds % 3600) // 60)
+        seconds = int(seconds % 60)
+
+        if hours > 0:
+            return f"{hours}:{minutes:02}:{seconds:02}"
+        else:
+            return f"{minutes}:{seconds:02}"
     
     def get_video_resolution(self):
         """Get the original resolution of the video."""
