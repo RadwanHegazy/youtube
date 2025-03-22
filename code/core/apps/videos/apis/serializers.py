@@ -33,7 +33,7 @@ class CreateVideoSerializer (serializers.ModelSerializer) :
 class UpdateVideoSerializer (CreateVideoSerializer) : ...
 
 
-class GetVideoSerializer(serializers.ModelSerializer) :
+class ListVideosSerializer(serializers.ModelSerializer) :
     owner = UserOwnerSerializer()
     
     class Meta:
@@ -49,7 +49,7 @@ class GetVideoSerializer(serializers.ModelSerializer) :
         ]
 
 
-class ListVideosSerializer(GetVideoSerializer) :
+class GetVideoSerializer(ListVideosSerializer) :
     get_list_video_media = VideoMediaSerializer(many=True)
 
     class Meta:
