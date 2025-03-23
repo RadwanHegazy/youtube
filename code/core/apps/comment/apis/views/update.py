@@ -2,12 +2,12 @@ from rest_framework.generics import UpdateAPIView
 from ..serializers import UpdateCommentSerializer
 from apps.comment.models import Comment, Video
 from django.shortcuts import get_object_or_404
-from rest_framework.permissions import IsAuthenticated
+from globals.permissions import IsCommentOwner
 
 
 class UpdateCommentAPI(UpdateAPIView) : 
     serializer_class = UpdateCommentSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsCommentOwner]
 
     # def get_queryset(self):
     #     video_id = self.kwargs.get('id', None)
