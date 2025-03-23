@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('apps.users.apis.urls')),
     path('video/', include('apps.videos.apis.urls')),
+    path('comment/', include('apps.comment.apis.urls')),
 ]
 
 if DEBUG:
