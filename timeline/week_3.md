@@ -35,3 +35,16 @@
     2. `comment/create/{video_id}`
     2. `comment/delete/{comment_id}`
     3. `comment/update/{comment_id}`
+
+# Day 3
+
+- Write test cases for : 
+
+    1. Get Comment
+    2. Update Comment 
+    3. Delete Comment
+    4. Create Comment
+
+- Solve issues on the comments endpoints 
+
+- Add versioning for the endpoints
