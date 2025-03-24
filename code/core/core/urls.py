@@ -21,9 +21,9 @@ from core.settings import MEDIA_ROOT, MEDIA_URL, DEBUG
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('users/', include('apps.users.apis.urls')),
-    path('video/', include('apps.videos.apis.urls')),
-    path('comment/', include('apps.comment.apis.urls')),
+    path('api/users/', include('apps.users.apis.urls')),
+    path('api/video/', include('apps.videos.apis.urls')),
+    path('api/comment/', include('apps.comment.apis.urls')),
 ]
 
 if DEBUG:

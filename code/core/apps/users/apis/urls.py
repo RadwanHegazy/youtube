@@ -4,8 +4,8 @@ from .views import profile
 
 
 urlpatterns = [
-    path('auth/google/', google.GoogleAuthView.as_view(), name='google_auth'),
-    path('auth/google/url/', google.CreateGoogleAuthLinkView.as_view(), name='google_url'),
+    path('v1/auth/google/', google.GoogleAuthView.as_view(), name='google_auth'),
+    path('v1/auth/google/url/', google.CreateGoogleAuthLinkView.as_view(), name='google_url'),
 
-    path('profile/', profile.ProfileViewAPI.as_view(), name='profile')
+    path('v1/profile/', profile.ProfileViewAPI.as_view(), name='profile')
 ]
