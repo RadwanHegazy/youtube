@@ -1,6 +1,7 @@
 from apps.users.models import User
 from rest_framework_simplejwt.tokens import AccessToken
 from apps.hashtag.models import Video, Hashtag
+from apps.comment.models import Comment
 from uuid import uuid4
 
 
@@ -25,6 +26,11 @@ def create_video(owner=None, title='test',description='test', is_active=False, h
     vid.save()
     return vid
 
+def create_comment(user=None, video=None) :
+    return Comment.objects.create(
+        owner=user if user else create_user(),
+        video=video if video else create_video()
+    ) 
 def create_hashtag(name='test'):
     return Hashtag.objects.create(name=name)
     

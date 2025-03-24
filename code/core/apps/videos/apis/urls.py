@@ -8,11 +8,11 @@ from .views import (
 
 
 urlpatterns = [
-    path('upload/', create.CreateVideoAPI.as_view(), name='upload_video'),
-    path('get/', get.ListVideoAPI.as_view(), name='list_video'),
-    path('get/<int:id>/', get.RetriveVideoAPI.as_view(), name='retrive_video'),
-    path('delete/<int:id>/', delete.DeleteVideoAPI.as_view(), name='delete_video'),
-    path('update/<int:id>/', update.UpdateVideoAPI.as_view(), name='update_video'),
-    path('like/<int:id>/', create.CreateVideoLikeAPI.as_view(), name='like_video'),
-    path('dislike/<int:id>/', create.CreateVideoDisLikeAPI.as_view(), name='dislike_video'),
+    path('v1/upload/', create.CreateVideoAPI.as_view(), name='upload_video'),
+    path('v1/get/', get.ListVideoAPI.as_view(), name='list_video'),
+    path('v1/get/<int:id>/', get.RetriveVideoAPI.as_view(), name='retrive_video'),
+    path('v1/delete/<int:id>/', delete.DeleteVideoAPI.as_view(), name='delete_video'),
+    path('v1/update/<int:id>/', update.UpdateVideoAPI.as_view(), name='update_video'),
+    path('v1/like/<int:id>/', create.CreateVideoLikeAPI.as_view(), name='like_video'),
+    path('v1/dislike/<int:id>/', create.CreateVideoDisLikeAPI.as_view(), name='dislike_video'),
 ]

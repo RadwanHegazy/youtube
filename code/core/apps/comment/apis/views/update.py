@@ -8,15 +8,14 @@ from globals.permissions import IsCommentOwner
 class UpdateCommentAPI(UpdateAPIView) : 
     serializer_class = UpdateCommentSerializer
     permission_classes = [IsCommentOwner]
-
-    # def get_queryset(self):
-    #     video_id = self.kwargs.get('id', None)
-    #     video = get_object_or_404(Video, id=video_id)
-    #     return Comment.objects.filter(video=video)
+    lookup_url_kwarg = 'comment_id'
+    lookup_field = 'id'
     
+    def get_queryset(self):
+        return Comment.objects.filter(owner=self.request.user)
+
     def get_serializer_context(self):
         data = super().get_serializer_context()
-        video_id = self.kwargs.get('comment_id', None)
-        video = get_object_or_404(Video, id=video_id)
-        data['video'] = video
+        comment = self.get_object()
+        data['video'] = comment.video
         return data
