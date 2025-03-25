@@ -48,3 +48,28 @@
 - Solve issues on the comments endpoints 
 
 - Add versioning for the endpoints
+
+
+# Day 4
+
+- Adding cache in `videos` app when : 
+
+    1. new videos created
+    2. videos deleted
+    3. videos updated
+
+- Adding cache in `comments` app when : 
+
+    1. new comments created
+    2. comments deleted
+    3. comments updated
+
+- Add `rate-limiting` on system
+
+- Create custom permission `IsPlayListOwner` in **globals/permissions.py**
+
+- create endpoints in `playlist` app :
+
+    1. create playlist
+    2. retrive playlist by id
+    3. get owner playlists
