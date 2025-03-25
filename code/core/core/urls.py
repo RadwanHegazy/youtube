@@ -24,6 +24,7 @@ urlpatterns = [
     path('api/users/', include('apps.users.apis.urls')),
     path('api/video/', include('apps.videos.apis.urls')),
     path('api/comment/', include('apps.comment.apis.urls')),
+    path('api/playlist/', include('apps.playlist.apis.urls')),
 ]
 
 if DEBUG:
