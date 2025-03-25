@@ -2,10 +2,10 @@ from celery import shared_task
 from globals.resolution_parser import ResolutionParser
 from apps.video_media.models import VideoMedia
 from apps.videos.models import Video
+from django.core.cache import cache
 
 @shared_task
 def parse_resolutions(vid_id) :
-    print("Going to parse video with id : ", vid_id)
     
     try :
         video_model = Video.objects.get(id=vid_id) 
@@ -31,3 +31,4 @@ def parse_resolutions(vid_id) :
     
     video_model.is_active = True
     video_model.save()
+    cache.delete('videos')

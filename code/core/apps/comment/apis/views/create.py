@@ -9,11 +9,6 @@ class CreateCommentAPI(CreateAPIView) :
     serializer_class = CreateCommentSerializer
     permission_classes = [IsAuthenticated]
 
-    # def get_queryset(self):
-    #     video_id = self.kwargs.get('id', None)
-    #     video = get_object_or_404(Video, id=video_id)
-    #     return Comment.objects.filter(video=video)
-    
     def get_serializer_context(self):
         data = super().get_serializer_context()
         video_id = self.kwargs.get('video_id', None)
