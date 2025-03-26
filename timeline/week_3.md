@@ -73,3 +73,18 @@
     1. create playlist
     2. retrive playlist by id
     3. get owner playlists
+
+# Day 5
+
+- Create caching for playlist model
+
+- Create endpoints : 
+
+    1. add video to playlist
+    2. remove video from playlist
+    3. update playlist
+    4. delete playlist
+
+- Integerate permission `IsPlaylistOwner` into the endpoints
+
+- create class `BaseQueryCache` in `globals/cache.py` for use it as a parent class and implement caching in the endpoints
