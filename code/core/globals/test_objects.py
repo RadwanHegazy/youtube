@@ -2,6 +2,7 @@ from apps.users.models import User
 from rest_framework_simplejwt.tokens import AccessToken
 from apps.hashtag.models import Video, Hashtag
 from apps.comment.models import Comment
+from apps.playlist.models import Playlist
 from uuid import uuid4
 
 
@@ -10,6 +11,12 @@ def create_user(username=None,email=None,**kwargs) :
         username = username if username else str(uuid4()),
         email = email if email else str(uuid4()),
         **kwargs
+    )
+
+def create_playlist(owner=None, title="test") : 
+    return Playlist.objects.create(
+        owner = owner if owner else create_user(),
+        title=title
     )
 
 def create_video(owner=None, title='test',description='test', is_active=False, hashtags=[]) :

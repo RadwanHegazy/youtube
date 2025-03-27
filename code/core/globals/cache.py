@@ -1,11 +1,12 @@
 from django.core.cache import cache
 from datetime import timedelta
+from django.db.models import QuerySet
 
 class BaseCacheQuery :
     cache_model = None
     cache_key = None
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet:
     
         if self.cache_model is None:
             raise Exception("cache_model attr can not be empty")

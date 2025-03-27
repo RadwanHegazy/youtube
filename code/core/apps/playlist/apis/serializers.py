@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 
 class GetPlaylistSerializer(serializers.ModelSerializer) : 
     owner = UserOwnerSerializer()
-    get_video_list = GetVideoSerializer(many=True)
+    get_videos_list = GetVideoSerializer(many=True)
 
     class Meta:
         model = Playlist
@@ -40,7 +40,7 @@ class AddVideoSerializer (serializers.Serializer) :
     video_id = serializers.IntegerField()
 
     def validate(self, attrs):
-        video_id = self.attrs.pop('video_id')
+        video_id = attrs.pop('video_id')
         request = self.context.get('request')
         owner = request.user
         video = get_object_or_404(Video, id=video_id, owner=owner)

@@ -3,22 +3,24 @@ from ..serializers import ListVideosSerializer, GetVideoSerializer
 from apps.videos.models import Video
 from django.core.cache import cache
 from datetime import timedelta
+from globals.cache import BaseCacheQuery
 from globals.filter_videos import (
     anonymus_filtering,
     user_filtering
 )
 
-class ListVideoAPI (ListAPIView) :
+class ListVideoAPI (
+    BaseCacheQuery,
+    ListAPIView
+) :
     serializer_class = ListVideosSerializer
+    cache_key = 'videos'
+    cache_model = Video
 
     def get_queryset(self):
         user = self.request.user
-        query = cache.get('videos', None)
+        query = super().get_queryset()
 
-        if not query :
-            query = Video.objects.all()
-            cache.set('videos', query, timedelta(hours=2).total_seconds())
-            
         if user.is_anonymous:
             query = anonymus_filtering(query)
         else:
@@ -26,16 +28,16 @@ class ListVideoAPI (ListAPIView) :
         
         return query
 
-class RetriveVideoAPI(RetrieveAPIView) : 
+class RetriveVideoAPI(
+    BaseCacheQuery,
+    RetrieveAPIView
+) : 
     serializer_class = GetVideoSerializer
-    queryset = Video.objects.filter(is_active=True)
+    cache_model = Video
+    cache_key = 'videos'
     lookup_field = 'id'
 
     def get_queryset(self):
-        query = cache.get('videos', None)
-
-        if not query : 
-            query = Video.objects.all()
-            cache.set('videos', query, timedelta(hours=2).total_seconds())
-
-        return query.filter(is_active=True)
+        return super().get_queryset().filter(
+            is_active=True
+        )
