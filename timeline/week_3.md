@@ -88,3 +88,25 @@
 - Integerate permission `IsPlaylistOwner` into the endpoints
 
 - create class `BaseQueryCache` in `globals/cache.py` for use it as a parent class and implement caching in the endpoints
+
+
+# Day 6
+
+- Use `BaseQueryCache` in : 
+    
+    1. `videos endpoints`
+    2. `comment endpoints`
+    3. `playlist endpoints`
+
+- Test the whole system after adding `BaseQueryCache` and solve the issues that happens.
+
+- Write test cases in app `playlist` for endpoints  :
+
+    1. `create playlist`
+    2. `update playlist`
+    3. `delete playlist`
+    4. `get playlist by id`
+    5. `get playlist by owner`
+    6. `add video via playlist`
+    7. `remove video via playlist`
+
