@@ -1,6 +1,6 @@
 from rest_framework.generics import CreateAPIView
 from ..serializers import CreateCommentSerializer
-from apps.comment.models import Comment, Video
+from apps.comment.models import Video
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 

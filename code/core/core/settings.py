@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-import os
+import os, sys
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -181,6 +181,9 @@ REST_FRAMEWORK = {
         'user': '60/min'
     }
 }
+
+if 'test' in sys.argv:
+    REST_FRAMEWORK.pop('DEFAULT_THROTTLE_RATES')
 
 
 from globals.social_auth import custom_save_data_for_google

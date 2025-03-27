@@ -1,13 +1,15 @@
 from rest_framework.generics import UpdateAPIView
 from apps.playlist.apis.serializers import UpdatePlaylistSerializer
 from globals.permissions import IsPlayListOwner
-from apps.playlist.apis.cache import PlaylistCacheQuery
-
+from globals.cache import BaseCacheQuery
+from apps.playlist.models import Playlist
 
 class UpdatePlaylistAPI (
-    PlaylistCacheQuery,
+    BaseCacheQuery,
     UpdateAPIView
 ) :
     serializer_class = UpdatePlaylistSerializer
     permission_classes = [IsPlayListOwner]
     lookup_field = 'id'
+    cache_key = 'playlists'
+    cache_model = Playlist
