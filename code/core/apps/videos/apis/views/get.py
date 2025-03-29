@@ -1,8 +1,7 @@
 from rest_framework.generics import RetrieveAPIView, ListAPIView
 from ..serializers import ListVideosSerializer, GetVideoSerializer
 from apps.videos.models import Video
-from django.core.cache import cache
-from datetime import timedelta
+from rest_framework.permissions import IsAuthenticated
 from globals.cache import BaseCacheQuery
 from globals.filter_videos import (
     anonymus_filtering,
@@ -40,4 +39,37 @@ class RetriveVideoAPI(
     def get_queryset(self):
         return super().get_queryset().filter(
             is_active=True
+        )
+    
+    def get_object(self):
+        vid = super().get_object()
+        user = self.request.user
+        if user.is_authenticated:
+            user.history.add(vid)
+            user.save()
+        return vid
+    
+
+class UserHistoryVideoAPI (
+    ListAPIView
+) :
+    serializer_class = ListVideosSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return self.request.user.get_history
+    
+class UserLikedVideosAPI (
+    ListAPIView,
+    BaseCacheQuery
+) :
+    serializer_class = ListVideosSerializer
+    permission_classes = [IsAuthenticated]
+    cache_key = 'videos'
+    cache_model = Video
+    
+    def get_queryset(self):
+        query = super().get_queryset()
+        return query.filter(
+            likes_by__in=self.request.user
         )

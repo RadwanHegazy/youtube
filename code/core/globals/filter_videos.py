@@ -5,7 +5,8 @@ def anonymus_filtering (queryset) :
 def user_filtering(user, queryset) :
     videos = queryset.filter(
         is_active=True,
-        hashtags__in=user.hashtags.all()
+        hashtags__in=user.hashtags.all(),
+        owner__in = user.subscribe_to.all()
     )
     return videos.order_by('-likes_by','-created_at')
 
