@@ -48,7 +48,7 @@ LOCAL_APPS = [
     'apps.comment',
     'apps.playlist',
     'apps.video_media',
-    
+    'apps.notifications',
 ]
 
 
