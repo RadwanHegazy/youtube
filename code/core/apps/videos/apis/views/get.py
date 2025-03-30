@@ -60,8 +60,8 @@ class UserHistoryVideoAPI (
         return self.request.user.get_history
     
 class UserLikedVideosAPI (
-    ListAPIView,
-    BaseCacheQuery
+    BaseCacheQuery,
+    ListAPIView
 ) :
     serializer_class = ListVideosSerializer
     permission_classes = [IsAuthenticated]
@@ -71,5 +71,5 @@ class UserLikedVideosAPI (
     def get_queryset(self):
         query = super().get_queryset()
         return query.filter(
-            likes_by__in=self.request.user
+            likes_by__in=[self.request.user]
         )
