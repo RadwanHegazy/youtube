@@ -1,0 +1,30 @@
+from django.test import TestCase
+from django.urls import reverse
+from globals.test_objects import create_user, create_video, create_headers
+
+
+class TestLikesVideosEndpoint (TestCase) : 
+
+    def setUp(self):
+        self.liked_videos_endpoint = reverse('user_likes')
+        self.user = create_user()
+        self.headers = create_headers(self.user)
+
+    def test_unauthorized(self):
+        req = self.client.get(self.liked_videos_endpoint)
+        self.assertEqual(req.status_code, 401)
+    
+    def test_empty_response(self) : 
+        req = self.client.get(self.liked_videos_endpoint, headers=self.headers)
+        self.assertEqual(req.status_code, 200)
+        self.assertEqual(req.json()['count'], 0)
+    
+    def test_non_empty_response(self) : 
+        vid = create_video()
+        vid.likes_by.add(self.user)
+        vid.save()
+        req = self.client.get(self.liked_videos_endpoint, headers=self.headers)
+        self.assertEqual(req.status_code, 200)
+        self.assertEqual(req.json()['count'], 1)
+    
+

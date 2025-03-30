@@ -33,14 +33,14 @@ class BaseSubscriptionSerializer (serializers.Serializer) :
     user_id = serializers.IntegerField()
 
     def validate(self, attrs):
-        user_id = attrs['user_id']
-        request = attrs['request']
+        user_id = attrs.get('user_id')
+        request = self.context.get('request')
         current_user = request.user
         user_to_subscribe = User.objects.filter(id=user_id).exclude(id=current_user.id)
 
         if not user_to_subscribe.exists(): 
             raise ValidationError({
-                'message' : "Invalid User id"
+                'message' : "invalid user_id"
             }) 
         
         self.current_user = current_user
