@@ -34,3 +34,16 @@
 3. Integerate `Ws` to the system
 
 4. Install `dj-notificaions` for use it in notificaions.
+
+# Day 3 
+
+- Send notifications on these actions : 
+
+    1. `When User Subscribe user`
+    2. `When User like video`
+    3. `When User comment video`
+
+- Add APIs docs via `swagger`.
+
+- Build `NotificationService` inside `globals/notification_center` to send and create the notificaions.
+
