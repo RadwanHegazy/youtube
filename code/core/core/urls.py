@@ -18,14 +18,30 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from core.settings import MEDIA_ROOT, MEDIA_URL, DEBUG
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="YT APIs Docs",
+        default_version='v1',
+        description="APIs documentation for youtube project."
+    ),
+    public=True,
+)
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
     path('api/users/', include('apps.users.apis.urls')),
     path('api/video/', include('apps.videos.apis.urls')),
     path('api/comment/', include('apps.comment.apis.urls')),
     path('api/playlist/', include('apps.playlist.apis.urls')),
+    path('__docs__/v1/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+
 ]
 
 if DEBUG:
     urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
+
+
