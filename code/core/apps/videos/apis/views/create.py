@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 from apps.videos.models import Video
 from rest_framework.response import Response
+from globals.notification_center import NotificationService
 
 class CreateVideoAPI (CreateAPIView) : 
     serializer_class = CreateVideoSerializer
@@ -24,6 +25,16 @@ class CreateVideoLikeAPI(CreateAPIView) :
             video.likes_by.remove(user)
         
         video.save()
+        
+        notification = NotificationService(
+            from_user=self.request.user,
+            to_user=video.owner,
+            content=f"{self.request.user.full_name} likes your video '{video.title}' ",
+            title="New Like",
+        )
+
+        notification.send()
+
         return Response(status=201)
 
 class CreateVideoDisLikeAPI(CreateAPIView) : 

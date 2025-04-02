@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from rest_framework.exceptions import ValidationError
+from globals.notification_center import NotificationService
 
 User = get_user_model()
 
@@ -58,6 +59,15 @@ class SubscribeUserSerializer(BaseSubscriptionSerializer) :
 
         self.user_to_subscribe.subscriptions.add(self.current_user)
         self.user_to_subscribe.save()
+
+        notification = NotificationService(
+            from_user=self.current_user,
+            to_user=self.user_to_subscribe,
+            content=f"{self.current_user.full_name} has subscribe to your channel",
+            title="New Subscriber"
+        )
+
+        notification.send()
 
 
 class UnSubsribeUserSerializer (BaseSubscriptionSerializer) : 

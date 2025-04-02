@@ -1,6 +1,7 @@
 from ..models import Comment
 from rest_framework import serializers
 from apps.users.apis.serializers import UserOwnerSerializer
+from globals.notification_center import NotificationService
 
 class ListCommentSerializer(serializers.ModelSerializer) : 
     owner = UserOwnerSerializer()
@@ -13,7 +14,7 @@ class ListCommentSerializer(serializers.ModelSerializer) :
             'owner'
         ]
 
-class CreateCommentSerializer(serializers.ModelSerializer) : 
+class BaseCommentSerializer(serializers.ModelSerializer) : 
     
     class Meta:
         model = Comment
@@ -29,4 +30,20 @@ class CreateCommentSerializer(serializers.ModelSerializer) :
         attrs['video'] = video
         return attrs
 
-class UpdateCommentSerializer (CreateCommentSerializer) : ... 
+class CreateCommentSerializer(BaseCommentSerializer) : 
+    
+    def save(self, **kwargs):
+        super().save(**kwargs)
+        user = self.validated_data.get('user')
+        video = self.validated_data.get('video')
+        notificaion = NotificationService(
+            from_user=user,
+            to_user=video.owner,
+            content=f"{user.full_name} comment in your video '{video.title}'.",
+            title="New Comment",
+        )
+
+        notificaion.send()
+
+
+class UpdateCommentSerializer (BaseCommentSerializer) : ... 
