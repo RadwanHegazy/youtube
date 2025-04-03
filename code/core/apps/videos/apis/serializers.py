@@ -3,7 +3,8 @@ from rest_framework import serializers
 from apps.users.apis.serializers import UserOwnerSerializer
 from ..tasks import parse_resolutions
 from apps.video_media.serializers import VideoMediaSerializer
-
+from django.shortcuts import get_object_or_404
+from globals.notification_center import NotificationService
 
 class CreateVideoSerializer (serializers.ModelSerializer) : 
 
@@ -67,3 +68,55 @@ class GetVideoSerializer(ListVideosSerializer) :
             'get_list_video_media',
             'duration',
         ]
+
+
+class BaseVideoLikeSerializer(serializers.Serializer) : 
+    video_id = serializers.IntegerField()
+
+    def validate(self, attrs):
+        video_id = attrs.get('video_id')
+        video = get_object_or_404(Video, id=video_id, is_active=True)
+        request = self.context.get('request')
+
+        attrs['video'] = video
+        attrs['user'] = request.user
+        return attrs
+    
+    def to_representation(self, *args, **kwargs):
+        return {}
+    
+
+class VideoLikeSerializer(BaseVideoLikeSerializer) : 
+
+    def save(self, **kwargs):
+        user = self.validated_data['user']
+        video = self.validated_data['video']
+
+        if user not in video.likes_by.all():
+            video.likes_by.add(user)
+        else:
+            video.likes_by.remove(user)
+        
+        video.save()
+        
+        notification = NotificationService(
+            from_user=user,
+            to_user=video.owner,
+            content=f"{user.full_name} likes your video '{video.title}' ",
+            title="New Like",
+        )
+
+        notification.send()
+
+class VideoDisLikeSerializer(BaseVideoLikeSerializer) : 
+
+    def save(self, **kwargs):
+        user = self.validated_data['user']
+        video = self.validated_data['video']
+
+        if user not in video.dislikes_by.all():
+            video.dislikes_by.add(user)
+        else:
+            video.dislikes_by.remove(user)
+        
+        video.save()

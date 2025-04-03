@@ -34,7 +34,7 @@ class CreateCommentSerializer(BaseCommentSerializer) :
     
     def save(self, **kwargs):
         super().save(**kwargs)
-        user = self.validated_data.get('user')
+        user = self.validated_data.get('owner')
         video = self.validated_data.get('video')
         notificaion = NotificationService(
             from_user=user,

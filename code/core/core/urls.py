@@ -37,6 +37,7 @@ urlpatterns = [
     path('api/video/', include('apps.videos.apis.urls')),
     path('api/comment/', include('apps.comment.apis.urls')),
     path('api/playlist/', include('apps.playlist.apis.urls')),
+    path('api/notifications/', include('apps.notifications.apis.urls')),
     path('__docs__/v1/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 
 ]

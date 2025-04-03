@@ -3,31 +3,37 @@ from django.urls import reverse
 from globals.test_objects import create_user, create_headers ,create_video
 
 class TestDisLikeVideosEndpoint(TestCase) : 
-
-    def dislike_video_endpoint(self, id) : 
-        return reverse('dislike_video', args=[id])
     
     def setUp(self):
         self.user = create_user()
+        self.dislike_video_endpoint = reverse('dislike_video')
         self.headers = create_headers(self.user)
         self.video = create_video()
 
     def test_dislike_video_unauthenticated(self) : 
-        req = self.client.post(self.dislike_video_endpoint(10))
+        req = self.client.post(self.dislike_video_endpoint,data={
+            'video_id' : 10
+        })
         self.assertEqual(req.status_code, 401)
 
     def test_dislike_video_not_found(self) : 
-        req = self.client.post(self.dislike_video_endpoint(10), headers=self.headers)
+        req = self.client.post(self.dislike_video_endpoint,data={
+            'video_id' : 10
+        }, headers=self.headers)
         self.assertEqual(req.status_code, 404)
     
     def test_dislike_video_not_active(self) : 
-        req = self.client.post(self.dislike_video_endpoint(self.video.id), headers=self.headers)
+        req = self.client.post(self.dislike_video_endpoint,data={
+            'video_id' : self.video.id
+        }, headers=self.headers)
         self.assertEqual(req.status_code, 404)
     
     def test_dislike_video_success(self) : 
         self.video.is_active = True
         self.video.save()
-        req = self.client.post(self.dislike_video_endpoint(self.video.id), headers=self.headers)
+        req = self.client.post(self.dislike_video_endpoint,data={
+            'video_id' : self.video.id
+        }, headers=self.headers)
         self.assertEqual(req.status_code, 201)
         self.assertIn(self.user, self.video.dislikes_by.all())
     
@@ -35,7 +41,9 @@ class TestDisLikeVideosEndpoint(TestCase) :
         self.video.is_active = True
         self.video.dislikes_by.add(self.user)
         self.video.save()
-        req = self.client.post(self.dislike_video_endpoint(self.video.id), headers=self.headers)
+        req = self.client.post(self.dislike_video_endpoint,data={
+            'video_id' : self.video.id
+        }, headers=self.headers)
         self.assertEqual(req.status_code, 201)
         self.assertNotIn(self.user, self.video.dislikes_by.all())
 

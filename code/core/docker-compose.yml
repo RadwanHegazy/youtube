@@ -36,6 +36,9 @@ services:
       - redis
     networks:
       - myproject_network
+    ports:
+      - "8000:8000"
+      
   django2:
     build: .
     container_name: django2_server

@@ -9,8 +9,11 @@ class NotificationService :
         self.content = content
         self.title = title
 
-    def send(self) : 
+    def send(self) :
 
+        if self.from_user == self.to_user : 
+            return
+        
         Notification.objects.create(
             sender = self.from_user,
             reciver = self.to_user,

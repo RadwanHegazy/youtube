@@ -15,6 +15,6 @@ urlpatterns = [
     path('v1/get/<int:id>/', get.RetriveVideoAPI.as_view(), name='retrive_video'),
     path('v1/delete/<int:id>/', delete.DeleteVideoAPI.as_view(), name='delete_video'),
     path('v1/update/<int:id>/', update.UpdateVideoAPI.as_view(), name='update_video'),
-    path('v1/like/<int:id>/', create.CreateVideoLikeAPI.as_view(), name='like_video'),
-    path('v1/dislike/<int:id>/', create.CreateVideoDisLikeAPI.as_view(), name='dislike_video'),
+    path('v1/like/', create.CreateVideoLikeAPI.as_view(), name='like_video'),
+    path('v1/dislike/', create.CreateVideoDisLikeAPI.as_view(), name='dislike_video'),
 ]
