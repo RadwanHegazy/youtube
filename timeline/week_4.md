@@ -47,3 +47,22 @@
 
 - Build `NotificationService` inside `globals/notification_center` to send and create the notificaions.
 
+# Day 4
+
+- Refactor endpoints : 
+
+    1. `Like Video`
+    2. `Dislike Video`
+
+- Build custom permission `IsNotificationOwner`
+
+- Create endpoints : 
+
+    1. `Get Notifications`
+    2. `Delete Notifications`
+
+- Write test cases for endpoints : 
+    1. `Get Notifications`
+    2. `Delete Notifications`
+
+- Integeratge caching on the notifications endpoints 
