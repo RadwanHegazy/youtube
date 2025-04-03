@@ -3,6 +3,7 @@ from rest_framework_simplejwt.tokens import AccessToken
 from apps.hashtag.models import Video, Hashtag
 from apps.comment.models import Comment
 from apps.playlist.models import Playlist
+from apps.notifications.models import Notification
 from uuid import uuid4
 
 
@@ -11,6 +12,13 @@ def create_user(username=None,email=None,**kwargs) :
         username = username if username else str(uuid4()),
         email = email if email else str(uuid4()),
         **kwargs
+    )
+
+def create_notification(sender=None, reciver=None, content="Test Content") : 
+    return Notification.objects.create(
+        sender = sender if sender else create_user(),
+        reciver = reciver if reciver else create_user(),
+        content=content
     )
 
 def create_playlist(owner=None, title="test") : 
