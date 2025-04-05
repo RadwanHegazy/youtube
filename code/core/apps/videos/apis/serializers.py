@@ -5,6 +5,23 @@ from ..tasks import parse_resolutions
 from apps.video_media.serializers import VideoMediaSerializer
 from django.shortcuts import get_object_or_404
 from globals.notification_center import NotificationService
+from django_elasticsearch_dsl_drf.serializers import DocumentSerializer
+from ..documents import VideoDocument, fields
+
+class VideoDocumentSerializer(DocumentSerializer):
+    
+    class Meta:
+        document = VideoDocument
+        fields = (
+            'id',
+            'owner',
+            'title',
+            'thumbnail',
+            'created_at',
+            'viewers_counter',
+            'duration',
+            'description',
+        )
 
 class CreateVideoSerializer (serializers.ModelSerializer) : 
 
@@ -120,3 +137,4 @@ class VideoDisLikeSerializer(BaseVideoLikeSerializer) :
             video.dislikes_by.remove(user)
         
         video.save()
+

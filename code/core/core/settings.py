@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
 from pathlib import Path
 import os, sys
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -57,6 +56,8 @@ LOCAL_APPS = [
 THIRD_PARTY_APPS = [
     'rest_framework',
     'drf_yasg',
+    'django_elasticsearch_dsl',
+    'django_elasticsearch_dsl_drf',
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -227,5 +228,12 @@ CHANNEL_LAYERS = {
         'CONFIG': {
             "hosts": [(f"{os.environ.get("REDIS_URL")}/2")],
         },
+    },
+}
+
+
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': os.environ.get('ELASTIC_SEARCH_URL')
     },
 }
