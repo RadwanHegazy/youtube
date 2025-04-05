@@ -25,10 +25,3 @@ class User (AbstractUser) :
     def __str__(self):
         return self.username
     
-    # def recommended_videos(self) : 
-    #     videos_list = []
-    #     for hashtag in self.hashtags.all() : 
-    #         for video in hashtag.videos.all():
-    #             videos_list.append(video.id)
-
-    #     return set(videos_list)

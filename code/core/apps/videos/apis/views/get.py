@@ -3,6 +3,8 @@ from ..serializers import ListVideosSerializer, GetVideoSerializer
 from apps.videos.models import Video
 from rest_framework.permissions import IsAuthenticated
 from globals.cache import BaseCacheQuery
+
+
 from globals.filter_videos import (
     anonymus_filtering,
     user_filtering
@@ -73,3 +75,4 @@ class UserLikedVideosAPI (
         return query.filter(
             likes_by__in=[self.request.user]
         )
+

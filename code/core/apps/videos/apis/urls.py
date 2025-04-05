@@ -3,7 +3,8 @@ from .views import (
     delete,
     get,
     update,
-    create
+    create,
+    search
 )
 
 
@@ -17,4 +18,5 @@ urlpatterns = [
     path('v1/update/<int:id>/', update.UpdateVideoAPI.as_view(), name='update_video'),
     path('v1/like/', create.CreateVideoLikeAPI.as_view(), name='like_video'),
     path('v1/dislike/', create.CreateVideoDisLikeAPI.as_view(), name='dislike_video'),
+    path('v1/search/', search.VideoSearchView.as_view({'get':'list'}), name='search_videos'),
 ]

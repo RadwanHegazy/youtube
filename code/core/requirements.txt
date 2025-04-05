@@ -20,10 +20,16 @@ cryptography==43.0.0
 daphne==4.1.2
 decorator==4.4.2
 Django==5.1
+django-elasticsearch-dsl==7.4
+django-elasticsearch-dsl-drf==0.22.1
+django-nine==0.2.7
 django-redis==5.4.0
 djangorestframework==3.15.2
 djangorestframework-simplejwt==5.3.1
 drf-yasg==1.21.10
+elastic-transport==8.17.1
+elasticsearch==7.17.12
+elasticsearch-dsl==7.4.0
 hyperlink==21.0.0
 idna==3.7
 imageio==2.37.0
@@ -60,7 +66,7 @@ txaio==23.1.1
 typing_extensions==4.12.2
 tzdata==2025.1
 uritemplate==4.1.1
-urllib3==2.2.3
+urllib3==1.26.20
 vine==5.1.0
 wcwidth==0.2.13
 zope.interface==7.0.1
