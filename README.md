@@ -46,7 +46,7 @@ A YouTube-like platform built with Django, Docker, MySQL, Redis, Celery, and Ela
    
 2. Enter the repository 
    ```bash
-   cd youtube-clone/code/core/
+   cd youtube/code/core/
    ```
 
 3. Create `.env` file & copy this content:
