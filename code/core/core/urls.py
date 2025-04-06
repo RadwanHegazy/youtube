@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 from core.settings import MEDIA_ROOT, MEDIA_URL, DEBUG
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from globals.views import health_check_view
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -38,6 +39,7 @@ urlpatterns = [
     path('api/comment/', include('apps.comment.apis.urls')),
     path('api/playlist/', include('apps.playlist.apis.urls')),
     path('api/notifications/', include('apps.notifications.apis.urls')),
+    path('__health_check__/', health_check_view, name='health_check'),
     path('__docs__/v1/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 
 ]

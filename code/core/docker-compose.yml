@@ -1,3 +1,5 @@
+version: '3.8'
+
 name: "Youtube"
 
 services:
@@ -9,19 +11,26 @@ services:
       MYSQL_USER: youtube_db_user
       MYSQL_PASSWORD: youtube123
       MYSQL_ROOT_PASSWORD: root
-      
     volumes:
       - mysql_data:/var/lib/mysql
-    # ports:
-    #   - "3306:3306"
     networks:
       - myproject_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "--password=root"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   redis:
     image: redis:7.2
     container_name: redis_cache
     networks:
       - myproject_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   django1:
     build: .
@@ -32,13 +41,19 @@ services:
     env_file:
       - .env
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     networks:
       - myproject_network
-    # ports:
-    #   - "8000:8000"
-      
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/__health_check__/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
   django2:
     build: .
     container_name: django2_server
@@ -48,10 +63,19 @@ services:
     env_file:
       - .env
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     networks:
       - myproject_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/__health_check__/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
   django3:
     build: .
     container_name: django3_server
@@ -61,10 +85,18 @@ services:
     env_file:
       - .env
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     networks:
       - myproject_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/__health_check__/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
 
   celery:
     build: .
@@ -75,21 +107,30 @@ services:
     env_file:
       - .env
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     networks:
       - myproject_network
+    healthcheck:
+      test: ["CMD", "celery", "-A", "core", "inspect", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
-    
   apache:
     build: ./apache
     container_name: apache_loadbalancer
     ports:
       - "80:80"
     depends_on:
-      - django1
-      - django2
-      - django3
+      django1:
+        condition: service_healthy
+      django2:
+        condition: service_healthy
+      django3:
+        condition: service_healthy
     networks:
       - myproject_network
 
@@ -107,8 +148,11 @@ services:
       - esdata:/usr/share/elasticsearch/data
     networks:
       - myproject_network
-    # ports:
-    #   - "9200:9200"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200/_cluster/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 volumes:
   mysql_data:
